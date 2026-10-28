@@ -77,7 +77,7 @@ const yen = (n: number | string) => `${Number(n).toLocaleString('ja-JP')}円`;
         <div class="money-row">
           <dt>
             アオタケプロジェクト 仮説検証資金
-            <a href={aotakeUrl} target="_blank" rel="noopener">採択のお知らせ →</a>
+            <a href={aotakeUrl} target="_blank" rel="noopener">アオタケプロジェクトについて →</a>
           </dt>
           <dd>{yen(1000000)}</dd>
         </div>
@@ -169,6 +169,10 @@ const yen = (n: number | string) => `${Number(n).toLocaleString('ja-JP')}円`;
     justify-content: space-between;
     width: 100%;
     padding: 1.1rem clamp(1.25rem, 5vw, 5rem);
+    background: rgb(200 202 208 / 14%);
+    border-bottom: 1px solid rgb(241 240 236 / 12%);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
   }
 
   .site-nav a {
