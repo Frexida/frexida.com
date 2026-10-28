@@ -59,6 +59,16 @@ const principles = [
   },
 ];
 
+const roadmap = [
+  { stage: '今', title: '工場の機械に知能を載せる' },
+  { stage: '次', title: '建設機械・屋外の機械へ広げる' },
+  {
+    stage: 'その先',
+    title: '災害時の、機械どうしの連携',
+    note: 'ドローンの効率的な群制御、ヒューマノイドの観測情報の処理のためにマルチエージェントを研究',
+  },
+];
+
 const axes = [
   {
     name: '防災',
@@ -72,8 +82,8 @@ const axes = [
   },
   {
     name: '探究',
-    meaning: '新しい技術・現場・可能性を探る',
-    expression: 'AIエージェントの実験・実装',
+    meaning: '好奇心を大事にし、アイデアに挑戦する',
+    expression: 'ラボのように研究を積極的に行う。AIエージェントやマルチエージェントの実験・実装',
   },
 ];
 ---
@@ -124,6 +134,32 @@ const axes = [
       </div>
     </section>
 
+    <section class="content-section core-section section-frame" aria-labelledby="core-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CORE</p>
+          <h2 id="core-title">Frexidaの在り方</h2>
+        </div>
+      </div>
+      <div class="core-body">
+        <p class="core-statement">変化し続けることを、<br />変化しない。</p>
+        <dl class="core-list">
+          <div class="core-row">
+            <dt>理念</dt>
+            <dd>繰り返される再構築</dd>
+          </div>
+          <div class="core-row">
+            <dt>コア</dt>
+            <dd>自らの変化が、社会の変化に影響を与えること</dd>
+          </div>
+          <div class="core-row">
+            <dt>実践</dt>
+            <dd>作業はエージェント化・自動化し、人は意思決定と設計に専念する。理解と成長を伴いながら、組織そのものを作り変え続ける</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
     <section class="content-section principles-section section-frame" aria-labelledby="principles-title">
       <div class="section-heading">
         <div>
@@ -144,6 +180,42 @@ const axes = [
           ))
         }
       </div>
+    </section>
+
+    <section class="content-section vision-section section-frame" aria-labelledby="vision-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">THE WORLD WE AIM FOR</p>
+          <h2 id="vision-title">目指す世界</h2>
+        </div>
+      </div>
+      <div class="vision-body">
+        <div class="vision-copy">
+          <p class="vision-lead">災害時、<br />既存の設備で<br />防災を行う。</p>
+          <p>災害専用の機械は、普段使われず維持できない。だから普段使いの機械に、災害時の動き方を最初から備えておく。</p>
+        </div>
+        <figure class="vision-figure">
+          <img
+            src="/images/vision-disaster-network.webp"
+            alt="ドローン、ヒューマノイド、AGV、建設機械、ロボットアームが分散ネットワークでつながり、被災地で協調して動くイメージ"
+            width="1672"
+            height="941"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </div>
+      <ol class="roadmap-list">
+        {
+          roadmap.map((step) => (
+            <li class="roadmap-item">
+              <p class="roadmap-stage">{step.stage}</p>
+              <h3>{step.title}</h3>
+              {step.note && <p class="roadmap-note">{step.note}</p>}
+            </li>
+          ))
+        }
+      </ol>
     </section>
 
     <section class="content-section axes-section section-frame" aria-labelledby="axes-title">
@@ -353,6 +425,48 @@ const axes = [
     line-height: 1.55;
   }
 
+  .core-body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-left: clamp(0rem, 5vw, 4.5rem);
+  }
+
+  .core-statement {
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(1.6rem, 3.4vw, 2.7rem);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+  }
+
+  .core-list {
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .core-row {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .core-row dt {
+    color: #9ba7c0;
+    font-size: 0.88rem;
+  }
+
+  .core-row dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.85;
+  }
+
   .principles-list {
     margin-left: clamp(0rem, 5vw, 4.5rem);
     border-top: 1px solid var(--line);
@@ -389,6 +503,86 @@ const axes = [
     color: var(--ink);
     font-size: clamp(1.08rem, 2vw, 1.45rem);
     line-height: 1.9;
+  }
+
+  .vision-body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-left: clamp(0rem, 5vw, 4.5rem);
+  }
+
+  .vision-copy p {
+    margin: 1.25rem 0 0;
+    color: var(--muted-ink);
+    font-size: 1rem;
+    line-height: 2.05;
+  }
+
+  .vision-copy .vision-lead {
+    margin-top: 0;
+    color: var(--ink);
+    font-size: clamp(1.4rem, 3vw, 2.3rem);
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    line-height: 1.6;
+  }
+
+  .vision-figure {
+    margin: 0;
+  }
+
+  .vision-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+
+  .roadmap-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 2.5rem 0 0 clamp(0rem, 5vw, 4.5rem);
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .roadmap-item {
+    padding: 1.5rem clamp(1rem, 2vw, 2rem) 1.7rem;
+  }
+
+  .roadmap-item:first-child {
+    padding-left: 0;
+  }
+
+  .roadmap-item + .roadmap-item {
+    border-left: 1px solid var(--line);
+  }
+
+  .roadmap-stage {
+    margin: 0;
+    color: #9ba7c0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .roadmap-item h3 {
+    margin: 0.5rem 0 0;
+    color: var(--ink);
+    font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  .roadmap-note {
+    margin: 0.6rem 0 0;
+    color: var(--muted-ink);
+    font-size: 0.85rem;
+    line-height: 1.8;
   }
 
   .axes-grid {
@@ -489,6 +683,9 @@ const axes = [
     }
 
     .solution-copy,
+    .core-body,
+    .vision-body,
+    .roadmap-list,
     .section-heading,
     .principles-list,
     .axes-grid,
@@ -500,6 +697,22 @@ const axes = [
       grid-template-columns: 1fr;
       gap: 0.65rem;
       padding: 1.35rem 0;
+    }
+
+    .core-body,
+    .vision-body,
+    .roadmap-list {
+      grid-template-columns: 1fr;
+    }
+
+    .roadmap-item,
+    .roadmap-item:first-child {
+      padding: 1.2rem 0;
+    }
+
+    .roadmap-item + .roadmap-item {
+      border-top: 1px solid var(--line);
+      border-left: 0;
     }
 
     .axes-grid {
