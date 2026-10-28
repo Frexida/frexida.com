@@ -1,0 +1,336 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'お金の流れ',
+  description: 'Frexidaの資金の出どころと使い道。領収書から集計した暫定の数字を公開しています。',
+};
+
+const aotakeUrl = 'https://aizu-startups-foundation.com/aotake/2026news/0hS2XJnd';
+
+const spent = [
+  ['サービス利用料（AWS・AIサービス・会計サービス等）', 45216],
+  ['旅費交通費', 44190],
+  ['備品', 143658],
+];
+const spentTotal = spent.reduce((sum, [, amount]) => sum + Number(amount), 0);
+
+const plan = [
+  ['運営費（月 約17,360円 × 4か月）', 69440],
+  ['備品の購入', 697496],
+];
+const planTotal = plan.reduce((sum, [, amount]) => sum + Number(amount), 0);
+
+const before = [
+  ['2025年', 128496],
+  ['2026年1～6月', 190235],
+];
+const beforeTotal = 318731;
+const beforeIncome = 285424;
+
+const services = [
+  'AWS',
+  'Claude',
+  'OpenAI',
+  'xAI',
+  'GitHub',
+  'Cloudflare',
+  'Vercel',
+  'Fly.io',
+  'Slack',
+  'Google Workspace',
+  '1Password',
+  'freee',
+  'tl;dv',
+  'OpenCode Go',
+  'Canva',
+  'Gamma',
+];
+
+const yen = (n: number | string) => `${Number(n).toLocaleString('ja-JP')}円`;
+---
+
+<PageLayout metadata={metadata}>
+  <Fragment slot="footer"></Fragment>
+
+  <header slot="header" class="site-header">
+    <a class="brand" href="/" aria-label="Frexida ホーム">
+      <img src="/images/frexida-lockup.png" alt="Frexida" width="434" height="120" />
+    </a>
+    <nav class="site-nav" aria-label="サイト内">
+      <a href="/money">お金の流れ</a>
+    </nav>
+  </header>
+
+  <main class="money-shell">
+    <section class="page-intro section-frame">
+      <p class="eyebrow">MONEY FLOW</p>
+      <h1>お金の流れ</h1>
+      <p class="lead">
+        資金の出どころと使い道を公開しています。会計上の決算ではなく、領収書から集計した暫定の数字です（2026年10月時点）。
+      </p>
+    </section>
+
+    <section class="content-section section-frame" aria-labelledby="source-title">
+      <h2 id="source-title">資金の出どころ</h2>
+      <dl class="money-list">
+        <div class="money-row">
+          <dt>
+            アオタケプロジェクト 仮説検証資金
+            <a href={aotakeUrl} target="_blank" rel="noopener">採択のお知らせ →</a>
+          </dt>
+          <dd>{yen(1000000)}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="content-section section-frame" aria-labelledby="use-title">
+      <h2 id="use-title">100万円の使い道</h2>
+      <h3>支出済み</h3>
+      <dl class="money-list">
+        {
+          spent.map(([label, amount]) => (
+            <div class="money-row">
+              <dt>{label}</dt>
+              <dd>{yen(amount)}</dd>
+            </div>
+          ))
+        }
+        <div class="money-row is-total">
+          <dt>計</dt>
+          <dd>{yen(spentTotal)}</dd>
+        </div>
+      </dl>
+      <h3>今後の予定</h3>
+      <dl class="money-list">
+        {
+          plan.map(([label, amount]) => (
+            <div class="money-row">
+              <dt>{label}</dt>
+              <dd>{yen(amount)}</dd>
+            </div>
+          ))
+        }
+        <div class="money-row is-total">
+          <dt>計</dt>
+          <dd>{yen(planTotal)}</dd>
+        </div>
+      </dl>
+      <p class="note">金額は税込。運営費の月額は、7月・8月のサービス利用料等の平均。</p>
+    </section>
+
+    <section class="content-section section-frame" aria-labelledby="before-title">
+      <h2 id="before-title">採択前（2025年～2026年6月）</h2>
+      <p class="body">AIサービスやクラウドの費用を、受託開発の収入でまかなっていました。</p>
+      <dl class="money-list">
+        {
+          before.map(([label, amount]) => (
+            <div class="money-row">
+              <dt>費用：{label}</dt>
+              <dd>{yen(amount)}</dd>
+            </div>
+          ))
+        }
+        <div class="money-row is-total">
+          <dt>費用 計</dt>
+          <dd>{yen(beforeTotal)}</dd>
+        </div>
+        <div class="money-row">
+          <dt>受託開発の収入</dt>
+          <dd>{yen(beforeIncome)}</dd>
+        </div>
+        <div class="money-row is-total">
+          <dt>収入でまかなえた割合</dt>
+          <dd>{((beforeIncome / beforeTotal) * 100).toFixed(1)}%</dd>
+        </div>
+      </dl>
+      <p class="note">
+        ドル建ての費用は、支払日または請求日の米ドルTTMで円換算。個人名義の支払いを含み、事業で使った割合やカード決済の為替差は調整していない。
+      </p>
+    </section>
+
+    <section class="content-section section-frame" aria-labelledby="services-title">
+      <h2 id="services-title">使っているサービス</h2>
+      <ul class="service-list">{services.map((name) => <li>{name}</li>)}</ul>
+    </section>
+  </main>
+</PageLayout>
+
+<style>
+  :global(html),
+  :global(body) {
+    background: #191a1c;
+    color: #f1f0ec;
+  }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.1rem clamp(1.25rem, 5vw, 5rem);
+  }
+
+  .site-nav a {
+    color: #f1f0ec;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .site-nav a:hover {
+    text-decoration: underline;
+    text-decoration-color: #526b9b;
+    text-underline-offset: 0.35em;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .brand img {
+    width: auto;
+    height: 2.6rem;
+  }
+
+  .money-shell {
+    --ink: #f1f0ec;
+    --muted-ink: #b7b8bd;
+    --line: #414348;
+    --indigo: #526b9b;
+    padding-bottom: 5rem;
+    color: var(--ink);
+  }
+
+  .section-frame {
+    width: min(100% - 3rem, 60rem);
+    margin-inline: auto;
+  }
+
+  .page-intro {
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2rem, 4vw, 3rem);
+  }
+
+  .eyebrow {
+    margin: 0 0 0.55rem;
+    color: #9ba7c0;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 500;
+    letter-spacing: 0.015em;
+  }
+
+  .lead {
+    margin: 1.2rem 0 0;
+    color: var(--muted-ink);
+    line-height: 2;
+  }
+
+  .content-section {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--line);
+  }
+
+  h2 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+    font-weight: 500;
+  }
+
+  h3 {
+    margin: 2rem 0 0.6rem;
+    color: #9ba7c0;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  h2 + h3 {
+    margin-top: 0;
+  }
+
+  .body {
+    margin: 0 0 1.2rem;
+    color: var(--muted-ink);
+    line-height: 1.9;
+  }
+
+  .money-list {
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .money-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .money-row dt {
+    color: var(--muted-ink);
+    font-size: 0.95rem;
+  }
+
+  .money-row dt a {
+    margin-left: 0.6rem;
+    color: #9ba7c0;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  .money-row dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .money-row.is-total dt,
+  .money-row.is-total dd {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .note {
+    margin: 0.9rem 0 0;
+    color: #8f9197;
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+
+  .service-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-list li {
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted-ink);
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 700px) {
+    .section-frame {
+      width: min(100% - 2rem, 60rem);
+    }
+
+    .money-row dt a {
+      display: block;
+      margin: 0.3rem 0 0;
+    }
+  }
+</style>

@@ -39,6 +39,7 @@ const companyInfo = [
   ['事業内容', 'ソフトウェア開発・機械設計・システム導入'],
   ['Webサイト', 'www.frexida.com'],
   ['連絡先', 'contact[at]frexida.com'],
+  ['お金の流れ', '資金の出どころと使い道', '/money'],
 ];
 
 const principles = [
@@ -94,9 +95,11 @@ const axes = [
 
   <header slot="header" class="site-header">
     <a class="brand" href="/" aria-label="Frexida ホーム">
-      <img src="/images/frexida-logo.png" alt="" width="36" height="36" />
-      <span>Frexida</span>
+      <img src="/images/frexida-lockup.png" alt="Frexida" width="434" height="120" />
     </a>
+    <nav class="site-nav" aria-label="サイト内">
+      <a href="/money">お金の流れ</a>
+    </nav>
   </header>
 
   <main class="home-shell">
@@ -247,10 +250,10 @@ const axes = [
       </div>
       <dl class="company-list">
         {
-          companyInfo.map(([label, value]) => (
+          companyInfo.map(([label, value, href]) => (
             <div class="company-row">
               <dt>{label}</dt>
-              <dd>{value}</dd>
+              <dd>{href ? <a href={href}>{value} →</a> : value}</dd>
             </div>
           ))
         }
@@ -270,6 +273,9 @@ const axes = [
   }
 
   .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: absolute;
     z-index: 5;
     inset: 0 0 auto;
@@ -278,22 +284,27 @@ const axes = [
     background: linear-gradient(180deg, rgb(15 17 20 / 55%), transparent);
   }
 
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
+  .site-nav a {
     color: #f1f0ec;
-    font-family: var(--font-space-grotesk), 'Space Grotesk', var(--font-inter), sans-serif;
-    font-size: 1.45rem;
-    font-weight: 400;
+    font-size: 0.92rem;
     letter-spacing: 0.04em;
     text-decoration: none;
   }
 
+  .site-nav a:hover {
+    text-decoration: underline;
+    text-decoration-color: #526b9b;
+    text-underline-offset: 0.35em;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+  }
+
   .brand img {
-    width: 3rem;
-    height: 3rem;
-    object-fit: contain;
+    width: auto;
+    height: 2.6rem;
   }
 
   .home-shell {
@@ -655,6 +666,13 @@ const axes = [
     margin: 0;
     color: var(--ink);
     font-size: 0.95rem;
+  }
+
+  .company-row dd a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--indigo);
+    text-underline-offset: 0.3em;
   }
 
   @media (max-width: 700px) {
